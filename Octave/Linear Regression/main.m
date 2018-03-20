@@ -1,5 +1,5 @@
 function main()
-  data = load('data2.txt'); %Multi-variable Linear Regression
+  data = load('data1.txt'); %Multi-variable Linear Regression
   X = data(:, 1:(size(data,2) - 1));
   y = data(:, end);
   m = length(y);
@@ -9,7 +9,7 @@ function main()
   X = [ones(size(X, 1), 1) X]; %Concatenate 1s to X to include bias in matmul
   theta = zeros(size(X,2),1);
   
-  [theta, costs] = gradientDescent(X, y, theta, 0.01, 1500); %Train parameters
+  [theta, costs] = gradientDescent(X, y, theta, 0.01, 150); %Train parameters
   figure(1)
 
   plot(costs)
@@ -28,3 +28,6 @@ function main()
   hold on
   plot(X(:,2:end), y, 'rx')
   plot(X(:,2:end), X * theta, '-')
+  xlabel('Iterations')
+  ylabel('Cost')
+  title('Cost over Iterations')
