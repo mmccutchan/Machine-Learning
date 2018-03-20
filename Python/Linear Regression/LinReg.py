@@ -9,9 +9,11 @@ def normalEquation(X, y):
     return np.linalg.inv(np.transpose(X) @ X) @ np.transpose(X) @ y
 
 def gradientDescent(X, y, theta, learningRate = 0.01, epochs = 50):
+    costs = []
     for epoch in range(epochs):
         theta = theta - np.reshape(learningRate / y.shape[0] * np.transpose(sum((X @ theta - y) * X)), (-1, theta.shape[1])) #y needs to be a numpy array
-    return theta
+        costs.append(computeCost(X, y, theta))
+    return (theta, costs)
 
 def normalize(X):
     return (X - np.mean(X, 0)) / np.std(X, 0)
@@ -44,5 +46,7 @@ if __name__ == "__main__":
 
 
     theta = np.zeros((X.shape[1],1))
-    theta = gradientDescent(X, y, theta, 0.01, 1500)
+    theta, costs = gradientDescent(X, y, theta, 0.01, 1500)
     print("Theta derived from gradient descent\n" + str(theta))
+    plt.plot(costs)
+    plt.show()
