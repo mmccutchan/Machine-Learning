@@ -48,6 +48,7 @@ if __name__ == "__main__":
     accuracy = tf.reduce_mean(tf.cast(correct, tf.float32), 0)
     optimizer = tf.train.AdamOptimizer(0.001).minimize(loss)
 
+    saver = tf.train.Saver()
     sess = tf.InteractiveSession()
     sess.run(tf.global_variables_initializer())
     epochs = 10
@@ -64,3 +65,5 @@ if __name__ == "__main__":
 
     acc = sess.run(accuracy, feed_dict={X: mnist.test.images, y: mnist.test.labels})
     print("Final test accuracy: " + str(acc))
+
+    saver.save(sess, r'C:\Users\mmccutchan\source\repos\Machine-Learning-Algorithms\Python\Neural Networks\Convolutional NN\Checkpoints\ConvNet')
